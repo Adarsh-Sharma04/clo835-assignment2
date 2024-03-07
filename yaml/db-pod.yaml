@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysqldb
+spec:
+  containers:
+  - name: mysqldb
+    image: 404623100329.dkr.ecr.us-east-1.amazonaws.com/assignment1_db:v0.5
+    env:
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: db-cred
+            key: password
+    ports:
+    - containerPort: 3306
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
