@@ -2,13 +2,14 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: app
+  namespace: webapp
 spec:
   containers:
   - image: 404623100329.dkr.ecr.us-east-1.amazonaws.com/assignment1_ecr:v0.5
     name: app
     env:
       - name: DBHOST
-        value: "10.244.0.8"
+        value: "10.244.0.4"
       - name: DBPORT
         value: "3306"
       - name: DATABASE
@@ -26,6 +27,7 @@ spec:
       - name: APP_COLOR
         value: "blue"
     resources: {}
+    ports:
+    - containerPort: 8080
   dnsPolicy: ClusterFirst
   restartPolicy: Always
-status: {}
