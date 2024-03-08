@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deploy2
+  namespace: webapp
+  labels:
+    app: employees
+    version: v2
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: employees
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: employees
+        version: v2
+    spec:
+      containers:
+      - name: webapp
+        image: 404623100329.dkr.ecr.us-east-1.amazonaws.com/assignment1_ecr:v0.6
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "pw"
+        - name: DATABASE
+          value: "employees"
+        - name: DBHOST
+          value: "10.244.0.14"
+        - name: DBPORT
+          value: "3306"
+        - name: DATABASE
+          value: "employees"
+        - name: DBPWD
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: password
+        - name: DBUSER
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: user
+        - name: APP_COLOR
+          value: "blue"
+        ports:
+        - containerPort: 8080
