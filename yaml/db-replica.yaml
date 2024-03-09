@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: db-replicas
+  namespace: sqldb
+  labels:
+    app: mysqldb
+   
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysqldb
+  template:
+    metadata:
+      labels:
+        app: mysqldb
+    spec:
+      containers:
+      - name: mysqldb
+        image: 404623100329.dkr.ecr.us-east-1.amazonaws.com/assignment1_db:v0.5
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "pw"
+        - name: DATABASE
+          value: "employees"
+        ports:
+        - containerPort: 3306

@@ -1,27 +1,27 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
-  name: app-deploy2
+  name: app-replica
   namespace: webapp
   labels:
     app: employees
-    version: v2
+    version: v1
 
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: employees
-      version: v2
+      version: v1
   template:
     metadata:
       labels:
         app: employees
-        version: v2
+        version: v1
     spec:
       containers:
       - name: webapp
-        image: 404623100329.dkr.ecr.us-east-1.amazonaws.com/assignment1_ecr:v0.6
+        image: 404623100329.dkr.ecr.us-east-1.amazonaws.com/assignment1_ecr:v0.5
         resources:
           requests:
             cpu: 100m
@@ -32,7 +32,7 @@ spec:
         - name: DATABASE
           value: "employees"
         - name: DBHOST
-          value: "sql-svc.sqldb.svc.cluster.local"
+          value: "10.244.0.6"
         - name: DBPORT
           value: "3306"
         - name: DATABASE

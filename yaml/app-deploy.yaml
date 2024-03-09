@@ -32,7 +32,7 @@ spec:
         - name: DATABASE
           value: "employees"
         - name: DBHOST
-          value: "10.244.0.14"
+          value: "sql-svc.sqldb.svc.cluster.local"
         - name: DBPORT
           value: "3306"
         - name: DATABASE

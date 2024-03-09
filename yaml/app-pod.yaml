@@ -9,7 +9,7 @@ spec:
     name: app
     env:
       - name: DBHOST
-        value: "10.244.0.4"
+        value: "10.244.0.6"
       - name: DBPORT
         value: "3306"
       - name: DATABASE
